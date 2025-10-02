@@ -32,12 +32,14 @@ public class BreakfastDataAccess(IBreakfastConfiguration conf)
         foreach (var line in File.ReadLines(filePath))
         {
             var parts = line.Split(';');
-            if (parts.Length == 2 &&
-                int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out int nbCvrt))
+            if (parts.Length == 3 &&
+                int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out int nbCvrtOrd) &&
+                int.TryParse(parts[2], NumberStyles.Integer, CultureInfo.InvariantCulture, out int nbCvrtSrv))
             {
-                items.Add(new ChbCvrModel(parts[0], nbCvrt));
+                items.Add(new ChbCvrModel(parts[0], nbCvrtOrd, nbCvrtSrv));
             }
         }
         return items.ToArray();
     }
 }
+
